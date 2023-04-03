@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>파일 리스트 정보</title>
+        <!--CSS, JS-->
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='rss.css')}}">
+    </head>
+    <body>
+        <div class="container">
+        <h1>파일 리스트</h1>
+        <form method="POST" action="/compress">
+        <table>
+            <thead>
+                <tr>
+                    <th>파일 이름</th>
+                    <th>파일 사이즈</th>
+                    <th>파일 수정날짜</th>
+                    <th>파일 선택</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                <tr>
+                    <td>{{file[0]}}</td>
+                    <td>{{file[1]}}</td>
+                    <td>{{file[2]}}</td>
+                    <td><input type="checkbox" name="files" value="{{file[0]}}"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">파일압축하기</button><br>
+        {%if compressed_file %}
+        파일이 압축이 완료되었습니다. <a href="{{url_for('download', file=compressed_file)}}">{{compressed_file}}</a>
+        {% endif %}
+    </form>
+    </div>
+    </body>
+</html>
