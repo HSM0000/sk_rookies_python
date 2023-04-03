@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>RSS Feed Reader</title>
+        <!--CSS, JS-->
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='rss.css')}}">
+    </head>
+    <body>
+        <div class="container">
+        <h1>파일 업로드</h1>
+        <form method="POST" action="{{url_for('upload')}}" enctype="multipart/form-data">
+            <label>파일을 업로드 해주세요.</label><br>
+            <input type="file" name="file">
+            <button type="submit">업로드</button>
+        </form>
+        <form method="POST" action="/compress">
+            <table>
+                <thead>
+                    <tr>
+                        <th>파일 이름</th>
+                        <th>파일 사이즈</th>
+                        <th>파일 수정날짜</th>
+                        <th>조회수</th>
+                        <th>파일 선택</th>
+                        <th>삭제</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for file in files %}
+                    <tr>
+                        <td><a href="{{url_for('download', file=file[0])}}">{{file[0]}}</a></td>
+                        <td>{{file[1]}}</td>
+                        <td>{{file[2]}}</td>
+                        <td>{{file[4]}}</td>
+                        <td><input type="checkbox" name="files" value="{{file[0]}}"></td>
+                        <td><button type="button" onclick="deleteFile('{{file[0]}}')">삭제</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit">파일압축하기</button><br>
+            {%if compressed_file %}
+            파일이 압축이 완료되었습니다. <a href="{{url_for('download', file=compressed_file)}}">{{compressed_file}}</a>
+            <a href="/">원래화면</a>
+            {% endif %}
+        </form>
+    </div>
+    <script>
+        function deleteFile(file) {
+            if (confirm(file + "을(를) 삭제하시겠습니까?")) {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            alert(xhr.responseText);
+                            location.reload();  // 페이지 새로고침
+                        } else {
+                            alert('파일 삭제에 실패했습니다.');
+                        }
+                    }
+                }
+                xhr.open('POST', '/delete');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('file=' + encodeURIComponent(file));
+            }
+        }
+        </script>
+    </body>
+</html>
