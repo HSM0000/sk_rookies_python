@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>RSS Feed Reader</title>
+        <!--CSS, JS-->
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='rss.css')}}">
+    </head>
+    <body>
+        <div class="container">
+        <h1>게시판</h1>
+        <div class = "container my-3">
+            <div class="row justify-content-beween my-3">
+                <div class="col-2">
+                    <select class="form-control so">
+                        <option value="recent">최신순</option>
+                        <option value="old">오래된 순</option>
+                        <option value="namee">이름순</option>
+                        <option value="ask">조회순</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>파일이름</th>
+                    <th>파일타입</th>
+                    <th>시간</th>
+                    <th>조회수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{file_name}}</td>
+                    <td>{{file_type}}</td>
+                    <td>{{file_ctime}}</td>
+                    <td>조회수 파이썬파일</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </body>
+</html>
