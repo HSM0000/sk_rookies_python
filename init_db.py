@@ -43,3 +43,11 @@ def add_file(db, filename, filetype):
         data = (filename, filetype) 
         cursor.execute(sql, data)
     db.commit()
+
+#조회수 업데이트하기
+def add_show(db,file_show,filename):
+    with db.cursor() as cursor:
+        sql="update uploadfile set  files_show=%s where filename_id=%s"
+        data=(file_show,filename)
+        cursor.execute(sql,data)
+    db.commit()
