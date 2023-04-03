@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, send_file
+from init_db import init_db,get_db,close_db
 import os
 import zipfile
 import datetime
 
 app = Flask(__name__)
+
+init_db()
 
 @app.route("/")
 def list():
@@ -37,6 +40,14 @@ def download():
     compressed_file = request.args.get("file")
     zip_path = os.path.join(uploads_dir, compressed_file)
     return send_file(zip_path, as_attachment=True)
+
+@app.before_request # 요청이 오기 직전에 db 연결
+def before_request():
+    get_db()
+
+@app.teardown_request # 요청이 끝난 직후에 db 연결 해제
+def teardown_request(exception):
+    close_db()
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>RSS Feed Reader</title>
+        <!--CSS, JS-->
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='rss.css')}}">
+    </head>
+    <body>
+        <div class="container">
+        <h1>파일 상세 정보</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>파일이름</th>
+                    <th>파일타입</th>
+                    <th>파일생성날짜</th>
+                    <th>파일수정날짜</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{file_name}}</td>
+                    <td>{{file_type}}</td>
+                    <td>{{file_ctime}}</td>
+                    <td>{{file_atime}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </body>
+</html>
