@@ -6,8 +6,13 @@
     </head>
     <body>
         <div class="container">
+            <form method="POST" action="/searchfile" enctype="multipart/form-data">
+                <label>searching</label><br>
+                <input type="text" name="search">
+                <button type="submit">검색</button>
+            </form>
         <h1>파일 업로드</h1>
-        <form method="POST" action="{{url_for('upload')}}" enctype="multipart/form-data">
+        <form method="POST" action="/upload" enctype="multipart/form-data">
             <label>파일을 업로드 해주세요.</label><br>
             <input type="file" name="file">
             <button type="submit">업로드</button>
@@ -20,6 +25,7 @@
                         <th>파일 사이즈</th>
                         <th>파일 수정날짜</th>
                         <th>조회수</th>
+                        <th>작성자</th>
                         <th>파일 선택</th>
                         <th>삭제</th>
                     </tr>
@@ -31,18 +37,21 @@
                         <td>{{file[1]}}</td>
                         <td>{{file[2]}}</td>
                         <td>{{file[4]}}</td>
+                        <td>{{file[5]}}</td>
                         <td><input type="checkbox" name="files" value="{{file[0]}}"></td>
                         <td><button type="button" onclick="deleteFile('{{file[0]}}')">삭제</button></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            <button type="button" onclick="deleteFileall()">전체 삭제</button>
             <button type="submit">파일압축하기</button><br>
             {%if compressed_file %}
             파일이 압축이 완료되었습니다. <a href="{{url_for('download', file=compressed_file)}}">{{compressed_file}}</a>
-            <a href="/">원래화면</a>
+            <a href="/index">원래화면</a>
             {% endif %}
         </form>
+        <button type="button"><a href="/logout">로그아웃</a></button>
     </div>
     <script>
         function deleteFile(file) {
@@ -61,6 +70,24 @@
                 xhr.open('POST', '/delete');
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.send('file=' + encodeURIComponent(file));
+            }
+        }
+        function deleteFileall() {
+            if (confirm("파일 전체를 삭제하시겠습니까?")) {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            alert(xhr.responseText);
+                            location.reload();  // 페이지 새로고침
+                        } else {
+                            alert('파일 삭제에 실패했습니다.');
+                        }
+                    }
+                }
+                xhr.open('POST', '/delete_all');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('file');
             }
         }
         </script>

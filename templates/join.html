@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>capstone3</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        
+	</head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+        .wrap {
+            width: 100%;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login {
+            width: 30%;
+            height: 600px;
+            background: rgba(33, 160, 215,0.2);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h2 {
+            color: #6ad1ed;
+            font-size: 2em;
+        }
+
+        .login_id {
+            margin-top: 20px;
+            width: 80%;
+        }
+
+        .login_id input {
+            width: 100%;
+            height: 50px;
+            border-radius: 30px;
+            margin-top: 10px;
+            padding: 0px 20px;
+            border: 1px solid white;
+            outline: none;
+        }
+
+        .login_pw {
+            margin-top: 20px;
+            width: 80%;
+        }
+
+        .login_pw input {
+            width: 100%;
+            height: 50px;
+            border-radius: 30px;
+            margin-top: 10px;
+            padding: 0px 20px;
+            border: 1px solid white;
+            outline: none;
+        }
+
+        .submit {
+        margin-top: 50px;
+        width: 80%;
+        }
+
+        .submit button {
+            width: 100%;
+            height: 50px;
+            border: 0;
+            outline: none;
+            border-radius: 40px;
+            background: linear-gradient(to left, lightskyblue, royalblue);
+            color: white;
+            font-size: 1.2em;
+            letter-spacing: 2px;
+        }
+    </style>
+	<body class="homepage is-preload">
+		<div id="page-wrapper">
+
+			<!-- Main -->
+            <section id="main">
+
+                    <form action="/join" method="post"> 
+                        <div class="wrap">
+                            <div class="login">
+                                <h2>Log-in</h2>
+                                <div class="login_id">
+                                    <h4>ID</h4>
+                                    <input type="text" name="login_id" placeholder="ID">
+                                </div>
+                                <div class="login_pw">
+                                    <h4>Password</h4>
+                                    <input type="password" name="login_pw" placeholder="Password">
+                                </div>
+                                <div class="login_id">
+                                    <h4>NAME</h4>
+                                    <input type="text" name="name" placeholder="name">
+                                </div>
+                                <div class="submit">
+                                    <button type="submit" value="submit">submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+            </section>
+
+			<!-- Footer -->
+
+		<!-- Scripts -->
+	</body>
+</html>
