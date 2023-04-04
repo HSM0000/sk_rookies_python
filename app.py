@@ -169,7 +169,7 @@ def searchfile():
                     files.append((file, os.path.getsize(file_path), ctime,mtime,file_show,session['user_id']))
         return render_template('list_result.html',files=files)   
     else : #정보가 존재하지 않으면 
-        return "<script type='text/javascript'>alert('파일이 없습니다');document.location.href='/';</script>"
+        return "<script type='text/javascript'>alert('파일이 없습니다');document.location.href='/index';</script>"
 
 @app.before_request # 요청이 오기 직전에 db 연결
 def before_request():
